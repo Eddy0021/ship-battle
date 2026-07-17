@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Battleship</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+
+<div id="game-container">
+
+    <h1>Web Battleship</h1>
+
+    <div id="lobby-screen" class="screen">
+
+        <div class="card">
+
+            <h2>Create a Match</h2>
+
+            <button id="btn-create">Generate Lobby ID</button>
+
+            <p id="display-id" class="hidden">
+                Your Lobby ID:
+                <strong id="lobby-id-text">...</strong>
+            </p>
+
+            <p id="waiting-status" class="hidden">
+                ⏳ Waiting for friend to join...
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Join a Match</h2>
+
+            <input
+                type="text"
+                id="input-lobby-id"
+                placeholder="Enter Friend's Lobby ID"
+            >
+
+            <button id="btn-join">
+                Connect & Play
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+
+        <div id="turn-indicator">
+            Connecting...
+        </div>
+
+        <button id="btn-rotate-mobile">
+            🔄 Rotate Ship
+        </button>
+
+        <div class="boards-container">
+
+            <div class="board-wrapper">
+
+                <h3>Your Board</h3>
+
+                <div id="my-board" class="grid"></div>
+
+            </div>
+
+            <div class="board-wrapper">
+
+                <h3>Enemy Board</h3>
+
+                <div id="enemy-board" class="grid"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="game-over-modal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <h2 id="modal-title">
+            Game Over
+        </h2>
+
+        <p id="modal-status-text">
+            Would you like to play another round?
+        </p>
+
+        <div class="modal-actions">
+
+            <button id="btn-play-again">
+                🎮 Play Again
+            </button>
+
+            <button
+                id="btn-leave-lobby"
+                class="danger-btn">
+                🚪 Leave to Menu
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
