@@ -188,7 +188,17 @@ document.addEventListener("DOMContentLoaded", () => {
     btnCreate.addEventListener('click', () => {
         amIHost = true;
         btnCreate.disabled = true;
-        peer = new Peer();
+        peer = new Peer({
+			secure: true,
+			port: 443,
+			host: '://getpeerjs.com', 
+			config: {
+				'iceServers': [
+					{ urls: 'stun:://google.com' },
+					{ urls: 'stun:://google.com' }
+				]
+			}
+		});
 
         peer.on('open', (id) => {
             lobbyIdText.innerText = id;
