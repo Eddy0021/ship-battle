@@ -12,6 +12,8 @@ const shipSizes = [5, 4, 3, 3, 2];
 let currentShipIndex = 0; 
 let horizontal = true; 
 
+const ROOM_PREFIX = "ship-";
+
 const btnRotateMobile = document.getElementById('btn-rotate-mobile');
 
 let myRemainingHitsLeft = 17;
@@ -184,11 +186,17 @@ document.addEventListener("DOMContentLoaded", () => {
         waitingStatus.classList.add('hidden');
         inputLobbyId.value = '';
     }
+	
+	function randomRoomId() {
+	  return ROOM_PREFIX + Math.random().toString(36).slice(2, 8).toUpperCase();
+	}
 
     btnCreate.addEventListener('click', () => {
         amIHost = true;
         btnCreate.disabled = true;
-        peer = new Peer();
+		
+        const customId = randomRoomId();
+        peer = new Peer(customId);
 
         peer.on('open', (id) => {
             lobbyIdText.innerText = id;
@@ -212,6 +220,13 @@ document.addEventListener("DOMContentLoaded", () => {
         peer.on('open', () => {
             conn = peer.connect(targetId);
             setupDataChannel();
+        });
+		
+		peer.on('error', (err) => {
+            if (err.type === 'unavailable-id') {
+                alert("ID je zauzet, pokušajte ponovo.");
+                returnToMainMenu();
+            }
         });
     });
 

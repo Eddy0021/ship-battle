@@ -438,6 +438,7 @@ button:active{
 
         flex-direction:column;
         gap:25px;
+		align-content: center;
     }
 
     .grid{
